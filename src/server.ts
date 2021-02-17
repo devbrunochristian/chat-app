@@ -1,12 +1,15 @@
 /* eslint-disable no-console */
 import morgan from 'morgan';
+import * as bodyparser from 'body-parser';
+import cors from 'cors';
 import App from './App';
 import { APP_PORT } from './config/constants';
+import UserController from './controllers/userController';
 
 const appInit = {
   port: Number(APP_PORT),
-  controllers: [],
-  middlewares: [morgan('tiny')],
+  controllers: [new UserController()],
+  middlewares: [morgan('tiny'), cors(), bodyparser.json()],
 };
 
 const app = new App(appInit);
