@@ -1,13 +1,18 @@
-import express from 'express';
+/* eslint-disable no-console */
+import morgan from 'morgan';
+import App from './App';
+import { APP_PORT } from './config/constants';
 
-const app = express();
+const appInit = {
+  port: Number(APP_PORT),
+  controllers: [],
+  middlewares: [morgan('tiny')],
+};
 
-app.get('/', (request, response) =>
-  response.json({
-    message: 'hello world',
-  }),
-);
+const app = new App(appInit);
 
-app.listen(3333, () => {
-  console.log('Back-end started in 3333 port!');
-});
+app
+  .initializeDB()
+  .then(() => console.log('[App] Connected to Database'))
+  .then(() => app.listen())
+  .catch(err => console.log(`[App] ${err}`));
