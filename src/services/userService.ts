@@ -6,7 +6,7 @@ import User from '../models/user';
 import generateToken from '../utils/generateToken';
 
 export default class UserService {
-  public registerUser = async (req: Request, res: Response) => {
+  public register = async (req: Request, res: Response) => {
     const { firstName, lastName, gender, avatar, email, password } = req.body;
 
     try {
@@ -39,6 +39,30 @@ export default class UserService {
         });
       }
       return res.status(401).json({ message: 'User not Found!' });
+    } catch (error) {
+      return res.status(500).json({ message: error });
+    }
+  };
+
+  public login = async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+
+    try {
+      const user: any = await User.findOne({ email });
+
+      if (!user) return res.status(401).json({ message: 'User not found!' });
+      if (!bcrypt.compareSync(password, user.password))
+        return res.status(401).json({ message: 'Incorrect password' });
+
+      return res.status(201).json({
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        gender: user.gender,
+        avatar: user.avatar,
+        token: generateToken(user._id),
+      });
     } catch (error) {
       return res.status(500).json({ message: error });
     }

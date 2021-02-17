@@ -3,7 +3,7 @@ import { Router } from 'express';
 import UserService from '../services/userService';
 
 export default class UserController {
-  private authUserRoute = '/api/auth/login';
+  private loginRoute = '/api/auth/login';
 
   private registerRoute = '/api/auth/register';
 
@@ -16,6 +16,7 @@ export default class UserController {
   }
 
   public initializeRoutes() {
-    this.router.post(this.registerRoute, this.userService.registerUser);
+    this.router.post(this.registerRoute, this.userService.register);
+    this.router.post(this.loginRoute, this.userService.login);
   }
 }
