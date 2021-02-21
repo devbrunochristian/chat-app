@@ -24,7 +24,7 @@ export default class UserService {
         email,
         password: hashPassword,
         gender,
-        avatar,
+        // avatar,
       });
 
       if (user) {
@@ -34,7 +34,7 @@ export default class UserService {
           lastName: user.lastName,
           email: user.email,
           gender: user.gender,
-          avatar: user.avatar,
+          // avatar: user.avatar,
           token: generateToken(user._id),
         });
       }

@@ -44,15 +44,7 @@
         "ignoreRestArgs": true
       }
     ],
-    "max-len": [
-      "warn",
-      {
-        "code": 100,
-        "ignoreStrings": true,
-        "ignoreTemplateLiterals": true,
-        "ignoreComments": true
-      }
-    ],
+   
     "no-plusplus": [
       "error",
       {
@@ -72,7 +64,7 @@
         ]
       }
     ],
-  
+    "react/jsx-curly-newline": "off",
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
     "react/jsx-boolean-value": "off",
