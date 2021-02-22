@@ -1,16 +1,19 @@
 import { Button, TextField, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Image } from './styles';
 import login from '../../assets/login.svg';
 import AuthService from '../../Services/authService';
+import { LoginUser } from '../../store/actions';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await AuthService.loginUser({ email, password });
+    dispatch(LoginUser({ email, password }));
     setEmail('');
     setPassword('');
   }
@@ -22,6 +25,7 @@ const Login = () => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setEmail(e.target.value)
         }
+        value={email}
         label="Email"
         variant="outlined"
         type="email"
@@ -31,6 +35,7 @@ const Login = () => {
           setPassword(e.target.value)
         }
         label="Password"
+        value={password}
         variant="outlined"
         type="password"
       />

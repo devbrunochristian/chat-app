@@ -1,11 +1,11 @@
 import Api from './api';
 
-interface LoginProps {
+export interface LoginProps {
   email: string;
   password: string;
 }
 
-interface CreateUserProps {
+export interface CreateUserProps {
   email: string;
   password: string;
   firstName:string;
@@ -20,7 +20,7 @@ const AuthService = {
     const { email, password } = data;
     try {
       const res = await Api.post('/api/auth/login', { email, password });
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -30,7 +30,7 @@ const AuthService = {
     const { email, password, firstName, lastName, gender  } = data;
     try {
       const res = await Api.post('/api/auth/register', { email, password, firstName, lastName, gender });
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }

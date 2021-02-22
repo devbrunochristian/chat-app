@@ -8,9 +8,11 @@ import {
   FormControl,
 } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Image } from './styles';
 import register from '../../assets/register.svg';
 import AuthService from '../../Services/authService';
+import { registerUser } from '../../store/actions';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -19,16 +21,19 @@ const Register = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [gender, setGender] = useState<string>('');
+  const dispatch = useDispatch();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await AuthService.createUser({
-      email,
-      password,
-      firstName,
-      gender,
-      lastName,
-    });
+    dispatch(
+      registerUser({
+        email,
+        password,
+        firstName,
+        gender,
+        lastName,
+      })
+    );
 
     setEmail('');
     setPassword('');
