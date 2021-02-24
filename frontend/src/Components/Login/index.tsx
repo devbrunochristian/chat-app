@@ -1,6 +1,7 @@
 import { Button, TextField, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import { Form, Image } from './styles';
 import login from '../../assets/login.svg';
 import AuthService from '../../Services/authService';
@@ -9,11 +10,12 @@ import { LoginUser } from '../../store/actions';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
   const dispatch = useDispatch();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    dispatch(LoginUser({ email, password }));
+    dispatch(LoginUser({ email, password }, history));
     setEmail('');
     setPassword('');
   }
@@ -42,7 +44,7 @@ const Login = () => {
       <Button color="primary" variant="contained" type="submit">
         Login
       </Button>
-      <Typography component="p">Don't have an account ? Register</Typography>
+      <Typography component="p">Don't have an account ?<Link to='/register'>Register</Link> </Typography>
     </Form>
   );
 };

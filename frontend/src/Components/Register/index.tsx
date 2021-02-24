@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import { Form, Image } from './styles';
 import register from '../../assets/register.svg';
 import AuthService from '../../Services/authService';
@@ -22,6 +23,7 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [gender, setGender] = useState<string>('');
   const dispatch = useDispatch();
+  const history = useHistory();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -32,7 +34,7 @@ const Register = () => {
         firstName,
         gender,
         lastName,
-      })
+      }, history)
     );
 
     setEmail('');
@@ -113,7 +115,7 @@ const Register = () => {
       <Button color="primary" variant="contained" type="submit">
         Create new account
       </Button>
-      <Typography component="p">Already have an account ? Login</Typography>
+      <Typography component="p">Already have an account ? <Link to='/login'>Login</Link></Typography>
     </Form>
   );
 };
