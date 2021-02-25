@@ -2,10 +2,9 @@
 import AuthService, { CreateUserProps, LoginProps } from '../../Services/authService';
 import { UserActionTypes } from '../reducers/userReducer/types';
 
-export const LoginUser = (params: LoginProps, history: any) => async (dispatch: any) => {
+export const LoginUser = (params: LoginProps) => async (dispatch: any) => {
   try {
     const res = await AuthService.loginUser(params);
-    history.push('/chat');
     return dispatch({
       type: UserActionTypes.LOGIN_USER_SUCCESS,
       payload: res
@@ -18,6 +17,10 @@ export const LoginUser = (params: LoginProps, history: any) => async (dispatch: 
     });
   }
 };
+
+export const logoutUser = () => ({
+  type: UserActionTypes.LOGOUT_USER
+});
 
 
 export const registerUser = (params: CreateUserProps, history: any) => async (dispatch: any) => {

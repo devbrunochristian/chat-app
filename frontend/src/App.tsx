@@ -1,26 +1,18 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import theme from './Theme';
 import Login from './Components/Login';
 import Register from './Components/Register';
-import Navbar from './Components/Navbar';
 import Chat from './Components/Chat';
 import Auth from './Components/Auth';
 import ProtectedRoute from './Components/ProtectedRoute';
-
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-
         <div>
-          <Navbar />
           <Switch>
             <Route exact path="/">
               <Auth />
@@ -31,7 +23,7 @@ function App() {
             <Route path="/register">
               <Register />
             </Route>
-            <ProtectedRoute path="/chat" component={Chat} />
+            <ProtectedRoute path="/chat" Component={Chat} />
             <Route path="*" render={() => <h1>404 Page not found</h1>} />
           </Switch>
         </div>

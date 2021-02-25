@@ -1,26 +1,26 @@
 import {
-  AppBar,
-  Button,
   ClickAwayListener,
   Grow,
-  IconButton,
   MenuItem,
   MenuList,
   Paper,
   Popper,
-  Toolbar,
   Typography,
 } from '@material-ui/core';
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container, UserMenuContainer } from './styles';
+import { UserStateInterface } from '../../store/reducers/userReducer/types';
+import { logoutUser } from '../../store/actions';
 
-interface Props {}
-
-const Navbar = (props: Props) => {
+const Navbar = () => {
   const [open, setOpen] = React.useState(false);
+  const userState = useSelector((state: UserStateInterface) => state.user);
+  const dispatch = useDispatch();
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
+  const { user } = userState;
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -36,16 +36,9 @@ const Navbar = (props: Props) => {
     setOpen(false);
   };
 
-  function handleListKeyDown(event: React.KeyboardEvent) {
-    if (event.key === 'Tab') {
-      event.preventDefault();
-      setOpen(false);
-    }
-  }
-
   return (
     <Container>
-      <Typography component="p">CHAT.IO</Typography>
+      <Typography component="p">BChat</Typography>
       <UserMenuContainer
         onClick={handleToggle}
         ref={anchorRef}
@@ -53,7 +46,7 @@ const Navbar = (props: Props) => {
         aria-haspopup="true"
       >
         <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        <Typography component="p">Bruno Christian Da Silva</Typography>
+        <Typography component="p">{`${user.firstName} ${user.lastName}`}</Typography>
         <Popper
           open={open}
           anchorEl={anchorRef.current}
@@ -73,7 +66,14 @@ const Navbar = (props: Props) => {
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList id="menu-list-grow">
                     <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem
+                      onClick={(e: React.MouseEvent) => {
+                        dispatch(logoutUser());
+                        handleClose(e);
+                      }}
+                    >
+                      Logout
+                    </MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
