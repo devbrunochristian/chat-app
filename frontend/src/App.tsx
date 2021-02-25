@@ -4,12 +4,14 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from 'react-router-dom';
 import theme from './Theme';
 import Login from './Components/Login';
 import Register from './Components/Register';
 import Navbar from './Components/Navbar';
+import Chat from './Components/Chat';
+import Auth from './Components/Auth';
+import ProtectedRoute from './Components/ProtectedRoute';
 
 
 function App() {
@@ -18,21 +20,19 @@ function App() {
       <Router>
 
         <div>
-
           <Navbar />
-
           <Switch>
+            <Route exact path="/">
+              <Auth />
+            </Route>
             <Route path="/login">
               <Login />
-
             </Route>
             <Route path="/register">
               <Register />
             </Route>
-            <Route render={() => <h1>404 Page not found</h1>} />
-            {/* <Route path="/">
-            <Home />
-          </Route> */}
+            <ProtectedRoute path="/chat" component={Chat} />
+            <Route path="*" render={() => <h1>404 Page not found</h1>} />
           </Switch>
         </div>
       </Router>

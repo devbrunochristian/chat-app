@@ -44,7 +44,6 @@
         "ignoreRestArgs": true
       }
     ],
-   
     "no-plusplus": [
       "error",
       {
@@ -64,6 +63,7 @@
         ]
       }
     ],
+    "react/jsx-indent": "off",
     "react/jsx-curly-newline": "off",
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
