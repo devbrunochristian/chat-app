@@ -13,9 +13,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, UserMenuContainer } from './styles';
 import { UserStateInterface } from '../../store/reducers/userReducer/types';
 import { logoutUser } from '../../store/actions';
+import Modal from '../Modal';
+import EditProfile from '../EditProfile';
 
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
   const userState = useSelector((state: UserStateInterface) => state.user);
   const dispatch = useDispatch();
   const anchorRef = React.useRef<HTMLButtonElement>(null);
@@ -38,6 +41,11 @@ const Navbar = () => {
 
   return (
     <Container>
+      <Modal
+        title="Edit profile"
+        content={<EditProfile />}
+        isOpen={openModal}
+      />
       <Typography component="p">BChat</Typography>
       <UserMenuContainer
         onClick={handleToggle}
@@ -65,7 +73,14 @@ const Navbar = () => {
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList id="menu-list-grow">
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem
+                      onClick={(e: React.MouseEvent) => {
+                        setOpenModal(!openModal);
+                        handleClose(e);
+                      }}
+                    >
+                      Edit Profile
+                    </MenuItem>
                     <MenuItem
                       onClick={(e: React.MouseEvent) => {
                         dispatch(logoutUser());
