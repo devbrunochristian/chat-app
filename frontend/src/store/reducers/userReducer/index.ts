@@ -1,60 +1,47 @@
 import { UserStateInterface, UserAction, UserActionTypes } from './types';
 
-
 const INITIAL_STATE: UserStateInterface = {
-  user: {},
-  token: null,
-  isLogged: false
+  user: localStorage.getItem('user')
+    ? JSON.parse(localStorage.getItem('user')!!)
+    : {},
+  token: localStorage.getItem('token') || null,
+  isLogged: !!localStorage.getItem('user'),
 };
 
-const userReducer = (state = INITIAL_STATE, action:UserAction) => {
-
+const userReducer = (state = INITIAL_STATE, action: UserAction) => {
   switch (action.type) {
-
     case UserActionTypes.LOGIN_USER_SUCCESS:
-
       return {
         user: action.payload,
         isLogged: true,
-        token: action.payload.token
+        token: action.payload.token,
       };
 
     case UserActionTypes.LOGIN_USER_FAIL:
-
       return {
-        ...state
+        ...state,
       };
 
-
     case UserActionTypes.LOGOUT_USER:
-
       return {
         user: {},
         token: null,
-        isLogged: false
-
+        isLogged: false,
       };
-
 
     case UserActionTypes.REGISTER_USER_SUCCESS:
-
       return {
-        ...state
-
+        ...state,
       };
-
 
     case UserActionTypes.REGISTER_USER_FAIL:
-
       return {
-        ...state
-  
+        ...state,
       };
 
-    default: return state;
-
+    default:
+      return state;
   }
-
 };
 
 export default userReducer;

@@ -12,7 +12,13 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <div>
+        <div
+          style={{
+            height: '100vh',
+            display: 'flex',
+            width: '100vw',
+          }}
+        >
           <Switch>
             <Route exact path="/">
               <Auth />

@@ -4,10 +4,8 @@ import Styled from 'styled-components';
 export const Container = withTheme(Styled.div`
     display:flex;
     flex-direction: column;
-    max-width: 500px;
-    margin:auto;
+    max-width:100vw;
     justify-content:center;
-    
     p{
         font-size: 24px;
         text-align: center;
@@ -17,6 +15,12 @@ export const Container = withTheme(Styled.div`
     button{
         margin-top: 10px;
     }
+
+    @media only screen and (min-width: 780px) {
+    max-width: 540px;
+    margin: auto;
+        
+      }
 `);
 
 export const Image = Styled.img`

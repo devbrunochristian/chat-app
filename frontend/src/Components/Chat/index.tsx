@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from '../Navbar';
 
 const Chat = () => (
-  <div>
+  <div style={{ width: '100%' }}>
     <Navbar />
   </div>
 );
